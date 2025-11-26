@@ -24,3 +24,7 @@ Simple vanilla JS weather lookup using the OpenWeather API and a tiny Node stati
 
 ## Self reflection
 In this project I learned how to use AJAX to call an API, parse the JSON response, and render basic weather details in the browser.
+
+## GitHub Pages / Jekyll
+- A minimal `_config.yml` is included to let GitHub Pages build with the default Jekyll pipeline (using the `minima` theme if you add layouts later).
+- Place the code at the repo root (or a `docs/` folder if you prefer) and enable Pages in repo settings; Jekyll will ignore Node-specific files via the config `exclude` list.

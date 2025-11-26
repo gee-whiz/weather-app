@@ -1,0 +1,10 @@
+title: Weather App
+description: Simple vanilla JS weather lookup using the OpenWeather API
+theme: minima
+exclude:
+  - node_modules
+  - package-lock.json
+  - package.json
+  - server.js
+  - README.md
+  - LICENSE
