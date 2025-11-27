@@ -33,7 +33,7 @@ jobs:
             echo "OPENWEATHER_API_KEY is not set in repo secrets." >&2
             exit 1
           fi
-          cat > config.js <<'EOF'
+          cat > config.js <<EOF
           window.__APP_CONFIG__ = {
             apiKey: "${OPENWEATHER_API_KEY}"
           };

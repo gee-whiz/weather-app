@@ -8,6 +8,8 @@ const errorEl=document.getElementById("error");
 const apiConfig=window.__APP_CONFIG__||{};
 const apiKey=apiConfig.apiKey||"";
 
+console.info("Weather app init", { hasApiKey: Boolean(apiKey) });
+
 const formatTemp=v=>`${Math.round(v)}°C`;
 const buildUrl=city=>`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${apiKey}`;
 
@@ -29,13 +31,18 @@ const fetchWeather=city=>{
     return;
   }
   const xhr=new XMLHttpRequest();
-  xhr.open("GET",buildUrl(city));
+  const url=buildUrl(city);
+  console.info("Requesting weather", { city, urlPreview: url.replace(apiKey,"***") });
+  xhr.open("GET",url);
   xhr.onreadystatechange=()=>{
     if(xhr.readyState!==4)return;
+    console.info("Weather response", { status: xhr.status, readyState: xhr.readyState, responseText: xhr.responseText?.slice(0,200) });
     if(xhr.status===200){
       renderWeather(JSON.parse(xhr.responseText));
     }else{
-      showError("Could not find that city. Try again.");
+      let message="Could not find that city. Try again.";
+      if(xhr.status===401) message="Unauthorized: check your API key configuration.";
+      showError(message);
     }
   };
   xhr.send();
