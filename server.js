@@ -4,6 +4,7 @@ const path = require("path");
 
 const port = process.env.PORT || 3000;
 const root = path.resolve(__dirname);
+const configPath = path.join(root, "config.js");
 const mime = {
   ".html": "text/html",
   ".js": "application/javascript",
@@ -16,6 +17,16 @@ const mime = {
   ".svg": "image/svg+xml",
   ".ico": "image/x-icon"
 };
+
+const apiKey = process.env.OPENWEATHER_API_KEY || "";
+const configContents = `window.__APP_CONFIG__ = ${JSON.stringify({ apiKey })};\n`;
+
+if (!apiKey) {
+  console.warn("Warning: OPENWEATHER_API_KEY not set. Weather requests will fail until it is configured.");
+}
+
+// Write a tiny config file the client can read without hard-coding the key.
+fs.writeFileSync(configPath, configContents, "utf8");
 
 const server = http.createServer((req, res) => {
   const urlPath = decodeURIComponent(req.url.split("?")[0]);

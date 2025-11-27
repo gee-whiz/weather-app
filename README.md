@@ -10,8 +10,8 @@ Simple vanilla JS weather lookup using the OpenWeather API and a tiny Node stati
 ## Setup
 1. Install Node.js (14+ recommended).
 2. Clone or download the project.
-3. Set your OpenWeather API key in `main.js` (`apiKey`).
-4. Install dependencies: `npm install` (none required; keeps lockfile accurate).
+3. Install dependencies: `npm install` (none required; keeps lockfile accurate).
+4. Set your OpenWeather API key as an environment variable: `export OPENWEATHER_API_KEY=your_key_here`.
 
 ## Run
 - Start server: `npm start`
@@ -21,6 +21,7 @@ Simple vanilla JS weather lookup using the OpenWeather API and a tiny Node stati
 - Uses the Current Weather endpoint: `https://api.openweathermap.org/data/2.5/weather`
 - Required params: `q` (city), `appid` (your key), `units=metric` for °C
 - Free tier may have rate limits; handle 404/401 responses when key or city is invalid
+- `config.js` is generated on server start from `OPENWEATHER_API_KEY`; it's gitignored to avoid committing secrets.
 
 ## Self reflection
 In this project I learned how to use AJAX to call an API, parse the JSON response, and render basic weather details in the browser.

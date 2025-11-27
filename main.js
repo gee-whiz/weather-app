@@ -5,7 +5,8 @@ const locationEl=result.querySelector(".location");
 const tempEl=result.querySelector(".temp");
 const detailsEl=result.querySelector(".details");
 const errorEl=document.getElementById("error");
-const apiKey="6bb2f235039eb8862b7255f5fe9faff6";
+const apiConfig=window.__APP_CONFIG__||{};
+const apiKey=apiConfig.apiKey||"";
 
 const formatTemp=v=>`${Math.round(v)}°C`;
 const buildUrl=city=>`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&units=metric&appid=${apiKey}`;
@@ -23,6 +24,10 @@ const showError=message=>{
 };
 
 const fetchWeather=city=>{
+  if(!apiKey){
+    showError("API key not configured. Set OPENWEATHER_API_KEY on the server.");
+    return;
+  }
   const xhr=new XMLHttpRequest();
   xhr.open("GET",buildUrl(city));
   xhr.onreadystatechange=()=>{
